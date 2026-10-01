@@ -5,75 +5,92 @@
     overflow: hidden;
 }
 
-.skillsGrid {
-    display: flex;
+.marqueeContainer {
     width: 100%;
-    overflow-x: auto;
+    overflow: hidden;
+    position: relative;
+    padding: 2rem 0 1rem;
+    margin-top: 1rem;
+    mask-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 15%, rgba(0, 0, 0, 1) 85%, rgba(0, 0, 0, 0) 100%);
+    -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 15%, rgba(0, 0, 0, 1) 85%, rgba(0, 0, 0, 0) 100%);
+}
+
+.skillsMarquee {
+    display: flex;
+    width: max-content;
     gap: 2.5rem;
-    margin-top: 0;
-    padding-bottom: 1rem;
-    scrollbar-width: thin;
-    scrollbar-color: var(--primary-color) var(--bg-color);
+    animation: scrollMarquee 40s linear infinite;
 }
 
-.skillsGrid::-webkit-scrollbar {
-    height: 8px;
+.skillsMarquee:hover {
+    animation-play-state: paused;
 }
 
-.skillsGrid::-webkit-scrollbar-track {
-    background: var(--bg-color);
-    border-radius: 10px;
-}
-
-.skillsGrid::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
-    border-radius: 10px;
-}
-
-.skillsGrid::-webkit-scrollbar-thumb:hover {
-    background: #0088cc;
+@keyframes scrollMarquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
 .skillCard {
-    padding: 2rem;
-    background: var(--second-bg-color);
-    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    background: transparent;
+    border: none;
     text-align: center;
     transition: var(--transition);
-    border: 2px solid transparent;
+    flex-shrink: 0;
 }
 
 .skillCard:hover {
-    transform: translateY(-10px);
-    border-color: var(--primary-color);
-    box-shadow: 0 15px 40px var(--shadow-color);
+    transform: translateY(-8px);
 }
 
 .skillIcon {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 1.5rem;
+    width: 75px;
+    height: 75px;
+    margin: 0 auto 0.75rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--bg-color);
-    border-radius: 50%;
-    font-size: 2.5rem;
-    color: var(--primary-color);
+    background: #f5f6e8;
+    border-radius: 18px;
+    font-size: 2.6rem;
     transition: var(--transition);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="dark"] .skillIcon {
+    background: #112e42;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.skillIcon i.devicon-github-original {
+    color: var(--text-color);
 }
 
 .skillCard:hover .skillIcon {
-    transform: rotateY(360deg);
-    background: var(--primary-color);
-    color: var(--bg-color);
+    transform: scale(1.1);
+    border-color: var(--primary-color);
+    box-shadow: 0 8px 25px rgba(0, 171, 240, 0.3);
 }
 
 .skillName {
-    font-size: 1.3rem;
-    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
     color: var(--text-color);
+    margin: 0;
+    white-space: nowrap;
 }
+
 
 .skillProgress {
     margin-top: 1rem;

@@ -1,39 +1,28 @@
-import { useEffect, useRef, useState } from 'react'
 import styles from '../styles/Skills.module.css'
 
 
 function Skills() {
-    const scrollRef = useRef(null)
-    const [isPaused, setIsPaused] = useState(false)
-
     const skills = [
-        { name: 'HTML', icon: 'fab fa-html5' },
-        { name: 'CSS', icon: 'fab fa-css3-alt' },
-        { name: 'JavaScript', icon: 'fab fa-js' },
-        { name: 'React', icon: 'fab fa-react' },
-        { name: 'Engineering Drawing', icon: 'fas fa-drafting-compass' },
-        { name: 'Figma', icon: 'fab fa-figma' },
-        { name: 'Docker', icon: 'fab fa-docker' },
-        { name: 'Git', icon: 'fab fa-git-alt' },
-        { name: 'Linux', icon: 'fab fa-linux' },
-        { name: 'MySQL', icon: 'fas fa-database' },
-        { name: 'C', icon: 'fas fa-c' },
-        { name: 'Python', icon: 'fab fa-python' },
+        { name: 'HTML5', icon: 'devicon-html5-plain colored' },
+        { name: 'CSS3', icon: 'devicon-css3-plain colored' },
+        { name: 'JavaScript', icon: 'devicon-javascript-plain colored' },
+        { name: 'TypeScript', icon: 'devicon-typescript-plain colored' },
+        { name: 'React', icon: 'devicon-react-original colored' },
+        { name: 'Java', icon: 'devicon-java-plain colored' },
+        { name: 'C', icon: 'devicon-c-plain colored' },
+        { name: 'Python', icon: 'devicon-python-plain colored' },
+        { name: 'Spring Boot', icon: 'devicon-spring-plain colored' },
+        { name: 'Docker', icon: 'devicon-docker-plain colored' },
+        { name: 'Git', icon: 'devicon-git-plain colored' },
+        { name: 'GitHub', icon: 'devicon-github-original' },
+        { name: 'Linux', icon: 'devicon-linux-plain colored' },
+        { name: 'VS Code', icon: 'devicon-vscode-plain colored' },
+        { name: 'Figma', icon: 'devicon-figma-plain colored' },
+        { name: 'MySQL', icon: 'devicon-mysql-plain colored' },
+        { name: 'Postman', icon: 'devicon-postman-plain colored' },
     ]
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            if (scrollRef.current && !isPaused) {
-                const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
-                if (scrollLeft >= scrollWidth - clientWidth) {
-                    scrollRef.current.scrollLeft = 0
-                } else {
-                    scrollRef.current.scrollLeft += 1
-                }
-            }
-        }, 50)
-        return () => clearInterval(interval)
-    }, [isPaused])
+    const duplicatedSkills = [...skills, ...skills]
 
     return (
         <section className={styles.skills} id="skills">
@@ -41,13 +30,12 @@ function Skills() {
             <div className="container">
                 <h2 className="section-title">My <span>Skillset</span></h2>
 
-                <div className="scrolling-section-wrapper">
-                    <div className={styles.skillsGrid} ref={scrollRef}>
-                        {skills.map((skill, index) => (
+                <div className={styles.marqueeContainer}>
+                    <div className={styles.skillsMarquee}>
+                        {duplicatedSkills.map((skill, index) => (
                             <div
                                 key={index}
                                 className={styles.skillCard}
-
                             >
                                 <div className={styles.skillIcon}>
                                     <i className={skill.icon}></i>

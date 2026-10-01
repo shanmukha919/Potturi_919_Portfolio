@@ -118,6 +118,16 @@
     transform: rotate(180deg);
 }
 
+.themeToggle i.fa-sun {
+    color: #ffb300; /* Warm golden sun color */
+    filter: drop-shadow(0 0 5px rgba(255, 179, 0, 0.4));
+}
+
+.themeToggle i.fa-moon {
+    color: #f1c40f; /* Light silver-yellow moon color */
+    filter: drop-shadow(0 0 5px rgba(241, 196, 15, 0.3));
+}
+
 /* Responsive */
 @media (max-width: 992px) {
     .menuToggle {

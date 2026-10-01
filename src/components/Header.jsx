@@ -30,7 +30,7 @@ function Header({ theme, toggleTheme, activeSection }) {
             <div className="container">
                 <div className={styles.headerContent}>
                     <a href="#home" className={styles.logo} onClick={(e) => handleNavClick(e, 'home')}>
-                        Welcome to my World🙂<span>...!</span>
+                        Welcome to my World<span></span>
                     </a>
 
                     <div

@@ -8,11 +8,11 @@ function Hero() {
     useEffect(() => {
         // Simple typing animation with colored roles
         const roles = [
-            { text: "💻 Frontend & Backend Developer", color: "#00d4ff" },
-            { text: "🛡️ Cyber Security Enthusiast", color: "#ff4757" },
-            { text: "🧑‍💻 Full Stack Developer", color: "#3742fa" },
-            { text: "🔧 DevOps Enthusiast", color: "#2ed573" },
-            { text: "🧠 Problem Solver", color: "#ff6b9d" }
+            { text: " Frontend & Backend Developer", color: "#00d4ff" },
+            { text: " Cyber Security Enthusiast", color: "#ff4757" },
+            { text: " Full Stack Developer", color: "#3742fa" },
+            { text: " DevOps Enthusiast", color: "#2ed573" },
+            { text: " Problem Solver", color: "#ff6b9d" }
         ];
         let roleIndex = 0
         let charIndex = 0

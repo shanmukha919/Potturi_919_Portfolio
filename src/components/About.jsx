@@ -5,7 +5,7 @@ import tvsLogo from "../assets/images/tvs.jpeg";
 import kluLogo from "../assets/images/klu.jpeg";
 import nttfLogo from "../assets/images/nttf.jpeg";
 import rbpsLogo from "../assets/images/rbps.gif";
-import resumePdf from "../assets/images/Potturi_Shanmukha_Resume.pdf";
+import resumePdf from "../assets/images/2300039137_P.Shanmukha.pdf";
 import experienceCertificate from "../assets/images/experience-certificate.jpg";
 
 
@@ -19,7 +19,7 @@ function About() {
     const downloadResume = () => {
         const link = document.createElement("a");
         link.href = resumePdf;
-        link.download = "Shanmukha_Potturi_Resume.pdf";
+        link.download = "2300039137_P.Shanmukha.pdf";
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -28,6 +28,40 @@ function About() {
     const viewExperiences = () => {
         window.open(experienceCertificate, "_blank");
     };
+
+    const educationTimeline = [
+        {
+            degree: "Bachelor of Engineering",
+            institution: "KL University, Vijayawada, AP",
+            link: "https://www.kluniversity.in/",
+            duration: "2024 - 2027",
+            description: "Computer Science and Engineering — CGPA: 9.16/10"
+        },
+        {
+            degree: "Diploma in Tool Engineering & Digital Manufacturing",
+            institution: "NTTF, Gannavaram, AP",
+            link: "https://www.nttftrg.com/",
+            duration: "2018 - 2021",
+            description: "Tool Engineering & Digital Manufacturing — CGPA: 8.68/10"
+        },
+        {
+            degree: "SSC (10th Grade)",
+            institution: "Ravindra Bharathi Public School, Vijayawada, AP",
+            link: "https://www.rbpschools.in/",
+            duration: "2017",
+            description: "Secondary School Certificate — CGPA: 9.3/10"
+        }
+    ];
+
+    const experienceTimeline = [
+        {
+            role: "Junior Technical Trainee",
+            company: "T.V.S Brakes India PVT LMT, Naidupeta, Andhra Pradesh",
+            link: "https://www.google.com/maps/search/?api=1&query=Brakes+India+Private+Limited+Menakuru+Naidupeta",
+            duration: "2021 - 2024",
+            description: "Worked in the Development Department (1 year as Trainee & 2 years as Junior Technical Trainee). Handled development, testing, and quality control of automotive braking systems."
+        }
+    ];
 
     return (
         <section className={styles.about} id="about">
@@ -44,6 +78,43 @@ function About() {
                         <div className={styles.imageWrapper}>
                             <img src={shanmukhaImage} alt="Shanmukha Potturi" />
                             <div className={styles.decorationCircle}></div>
+                        </div>
+
+                        {/* SOFT SKILLS SECTION */}
+                        <div className={styles.softSkillsContainer}>
+                            <h3 className={styles.softSkillsTitle}>Strengths & Soft Skills</h3>
+                            <div className={styles.softSkillsGrid}>
+                                <div className={styles.softSkillCard}>
+                                    <div className={styles.softSkillIcon}>
+                                        <i className="fas fa-bullseye"></i>
+                                    </div>
+                                    <span>Adaptability</span>
+                                </div>
+                                <div className={styles.softSkillCard}>
+                                    <div className={styles.softSkillIcon}>
+                                        <i className="fas fa-brain"></i>
+                                    </div>
+                                    <span>Observation</span>
+                                </div>
+                                <div className={styles.softSkillCard}>
+                                    <div className={styles.softSkillIcon}>
+                                        <i className="fas fa-award"></i>
+                                    </div>
+                                    <span>Problem-solving</span>
+                                </div>
+                                <div className={styles.softSkillCard}>
+                                    <div className={styles.softSkillIcon}>
+                                        <i className="fas fa-comments"></i>
+                                    </div>
+                                    <span>Communication</span>
+                                </div>
+                                <div className={styles.softSkillCard}>
+                                    <div className={styles.softSkillIcon}>
+                                        <i className="fas fa-users"></i>
+                                    </div>
+                                    <span>Teamwork</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -65,7 +136,7 @@ function About() {
                             </ul>
                         </div>
 
-                        {/* PERSONAL INFO */}
+                        {/* PERSONAL INFO
                         <div className={styles.personalInfo}>
                             <div className={styles.infoGrid}>
                                 <div className={styles.infoItem}>
@@ -120,7 +191,7 @@ function About() {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
 
                         {/* BUTTONS */}
 
@@ -159,64 +230,54 @@ function About() {
                             <div className={styles.tabsContent}>
                                 {activeTab === "experience" && (
                                     <div className={styles.tabPanel} id="experience">
-                                        <div className={styles.educationCard}>
-                                            <div className={styles.educationLogo}>
-                                                <img src={tvsLogo} alt="TVS Brakes India Logo" />
-                                            </div>
-
-                                            <div className={styles.educationContent}>
-                                                <h3>T.V.S Brakes India PVT LMT</h3>
-                                                <span className={styles.grade}>JTE - Grade</span>
-                                                <span className={styles.location}>Naidupeta, Andhra Pradesh</span>
-                                                <span className={styles.duration}>2021 - 2024</span>
-                                            </div>
+                                        <h3 className={styles.timelineTitle}>
+                                            <i className="fas fa-briefcase"></i> Experience Timeline
+                                        </h3>
+                                        <div className={styles.timelineContainer}>
+                                            {experienceTimeline.map((item, index) => (
+                                                <div key={index} className={styles.timelineItem}>
+                                                    <div className={styles.timelineItemHeader}>
+                                                        <span className={styles.timelineDegree}>{item.role}</span>
+                                                        <a 
+                                                            href={item.link} 
+                                                            target="_blank" 
+                                                            rel="noopener noreferrer" 
+                                                            className={styles.timelineInstitution}
+                                                        >
+                                                            {item.company} <i className="fas fa-external-link-alt"></i>
+                                                        </a>
+                                                    </div>
+                                                    <span className={styles.timelineDuration}>{item.duration}</span>
+                                                    <p className={styles.timelineDescription}>{item.description}</p>
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
                                 )}
 
                                 {activeTab === "education" && (
                                     <div className={styles.tabPanel}>
-                                        <div className={styles.educationCards}>
-
-                                            <div className={styles.educationCard}>
-                                                <div className={styles.educationLogo}>
-                                                    <img src={kluLogo} alt="KL University Logo" />
+                                        <h3 className={styles.timelineTitle}>
+                                            <i className="fas fa-graduation-cap"></i> Education Timeline
+                                        </h3>
+                                        <div className={styles.timelineContainer}>
+                                            {educationTimeline.map((item, index) => (
+                                                <div key={index} className={styles.timelineItem}>
+                                                    <div className={styles.timelineItemHeader}>
+                                                        <span className={styles.timelineDegree}>{item.degree}</span>
+                                                        <a 
+                                                            href={item.link} 
+                                                            target="_blank" 
+                                                            rel="noopener noreferrer" 
+                                                            className={styles.timelineInstitution}
+                                                        >
+                                                            {item.institution} <i className="fas fa-external-link-alt"></i>
+                                                        </a>
+                                                    </div>
+                                                    <span className={styles.timelineDuration}>{item.duration}</span>
+                                                    <p className={styles.timelineDescription}>{item.description}</p>
                                                 </div>
-
-                                                <div className={styles.educationInfo}>
-                                                    <h4>KL University</h4>
-                                                    <div className={styles.educationGrade}>9.16 CGPA</div>
-                                                    <p className={styles.educationLocation}>Vijayawada, AP</p>
-                                                    <p className={styles.educationDuration}>2024 - 2027</p>
-                                                </div>
-                                            </div>
-
-                                            <div className={styles.educationCard}>
-                                                <div className={styles.educationLogo}>
-                                                    <img src={nttfLogo} alt="NTTF Logo" />
-                                                </div>
-
-                                                <div className={styles.educationInfo}>
-                                                    <h4>NTTF</h4>
-                                                    <div className={styles.educationGrade}>8.67 CGPA</div>
-                                                    <p className={styles.educationLocation}>Gannavaram, AP</p>
-                                                    <p className={styles.educationDuration}>2018 - 2021</p>
-                                                </div>
-                                            </div>
-
-                                            <div className={styles.educationCard}>
-                                                <div className={styles.educationLogo}>
-                                                    <img src={rbpsLogo} alt="Ravindra Bharathi Public School Logo" />
-                                                </div>
-
-                                                <div className={styles.educationInfo}>
-                                                    <h4>Ravindra Bharathi Public School</h4>
-                                                    <div className={styles.educationGrade}>9.3 CGPA</div>
-                                                    <p className={styles.educationLocation}>Vijayawada, AP</p>
-                                                    <p className={styles.educationDuration}>2018 - Passout</p>
-                                                </div>
-                                            </div>
-
+                                            ))}
                                         </div>
                                     </div>
                                 )}
