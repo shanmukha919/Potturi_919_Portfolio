@@ -73,5 +73,5 @@ Write-Host "  SUCCESS! All changes pushed to GitHub." -ForegroundColor Green
 Write-Host "==================================================" -ForegroundColor Green
 Write-Host ""
 Write-Host "  GitHub Pages will redeploy in ~1-2 minutes." -ForegroundColor White
-Write-Host "  Live site: https://shanmukha919.github.io/Shanmukha_919/" -ForegroundColor Cyan
+Write-Host "  Live site: https://shanmukha919.github.io/Potturi_919_Portfolio/" -ForegroundColor Cyan
 Write-Host ""
