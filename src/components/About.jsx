@@ -35,7 +35,7 @@ function About() {
             institution: "KL University, Vijayawada, AP",
             link: "https://www.kluniversity.in/",
             duration: "2024 - 2027",
-            description: "Computer Science and Engineering — CGPA: 9.16/10"
+            description: "Computer Science and Engineering — CGPA: 9.21/10"
         },
         {
             degree: "Diploma in Tool Engineering & Digital Manufacturing",
