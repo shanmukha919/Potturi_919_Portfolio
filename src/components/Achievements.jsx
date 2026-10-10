@@ -196,7 +196,7 @@ function Achievements() {
                                     // Find original index in certificates array for stable toggle state
                                     const originalIndex = certificates.findIndex(c => c.title === cert.title);
                                     const isDescActive = activeDesc[originalIndex];
-                                    
+
                                     return (
                                         <div key={originalIndex} className={styles.fullCertificate}>
                                             <div className={styles.certificateWrapper}>
@@ -214,10 +214,10 @@ function Achievements() {
                                                         className={styles.certificateFrame}
                                                     ></iframe>
                                                 )}
-                                                
+
                                                 {/* Category Tag overlay on top-left */}
                                                 <span className={styles.categoryBadge}>{cert.category.toUpperCase()}</span>
-                                                
+
                                                 {/* Eye icon overlay on bottom-right */}
                                                 <button
                                                     className={`${styles.eyeBtn} ${isDescActive ? styles.eyeBtnActive : ''}`}
@@ -236,18 +236,18 @@ function Achievements() {
                                                     </div>
                                                 )}
                                             </div>
-                                            
+
                                             <div className={styles.cardContent}>
                                                 <h4>{cert.title}</h4>
                                                 <div className={styles.issuerRow}>
                                                     <span className={styles.bulletDot}></span>
                                                     <span className={styles.issuerText}>{cert.issuer}</span>
                                                 </div>
-                                                
-                                                <a 
-                                                    href={cert.type === 'image' ? cert.src : cert.src.replace('#toolbar=0', '')} 
-                                                    target="_blank" 
-                                                    rel="noopener noreferrer" 
+
+                                                <a
+                                                    href={cert.type === 'image' ? cert.src : cert.src.replace('#toolbar=0', '')}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
                                                     className={styles.viewLink}
                                                 >
                                                     View Certificate <i className="fas fa-external-link-alt"></i>
@@ -280,7 +280,7 @@ function Achievements() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <button
                                                 className={styles.hackathonEyeBtn}
                                                 onClick={(e) => {
@@ -293,9 +293,9 @@ function Achievements() {
                                                 <i className="fas fa-eye"></i>
                                             </button>
                                         </div>
-                                        
+
                                         <p className={styles.hackathonDescription}>{hack.description}</p>
-                                        
+
                                         <div className={styles.hackathonLinksRow}>
                                             {hack.links.map((link, lIdx) => (
                                                 <a
@@ -324,9 +324,9 @@ function Achievements() {
                         <button className={styles.lightboxCloseBtn} onClick={() => setLightboxOpen(false)}>
                             &times;
                         </button>
-                        
+
                         {lightboxImages.length > 1 && (
-                            <button 
+                            <button
                                 className={`${styles.lightboxNavBtn} ${styles.lightboxPrev}`}
                                 onClick={() => setCurrentImgIndex((prev) => (prev === 0 ? lightboxImages.length - 1 : prev - 1))}
                             >
@@ -335,10 +335,10 @@ function Achievements() {
                         )}
 
                         <div className={styles.lightboxImageWrapper}>
-                            <img 
-                                src={lightboxImages[currentImgIndex]} 
-                                alt={`Photo ${currentImgIndex + 1}`} 
-                                className={styles.lightboxImage} 
+                            <img
+                                src={lightboxImages[currentImgIndex]}
+                                alt={`Photo ${currentImgIndex + 1}`}
+                                className={styles.lightboxImage}
                             />
                             <div className={styles.lightboxCounter}>
                                 {currentImgIndex + 1} / {lightboxImages.length}
@@ -346,7 +346,7 @@ function Achievements() {
                         </div>
 
                         {lightboxImages.length > 1 && (
-                            <button 
+                            <button
                                 className={`${styles.lightboxNavBtn} ${styles.lightboxNext}`}
                                 onClick={() => setCurrentImgIndex((prev) => (prev === lightboxImages.length - 1 ? 0 : prev + 1))}
                             >
