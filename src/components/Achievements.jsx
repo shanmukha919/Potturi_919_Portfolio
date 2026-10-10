@@ -32,6 +32,14 @@ function Achievements() {
 
     const certificates = [
         {
+            title: 'Juniper Networks Certified Associate - Junos (JNCIA-Junos)',
+            issuer: 'Juniper Networks',
+            category: 'Networking',
+            src: `${import.meta.env.BASE_URL}docs/assets/juniper-jncia-junos.png`,
+            type: 'image',
+            description: 'Validates foundational knowledge of the Junos OS, routing fundamentals, routing policy, firewall filters, and network configuration on Juniper devices.'
+        },
+        {
             title: 'Microsoft Certified: Azure Fundamentals (AZ-900)',
             issuer: 'Microsoft',
             category: 'Cloud',
@@ -192,11 +200,20 @@ function Achievements() {
                                     return (
                                         <div key={originalIndex} className={styles.fullCertificate}>
                                             <div className={styles.certificateWrapper}>
-                                                <iframe
-                                                    src={cert.src}
-                                                    title={cert.title}
-                                                    className={styles.certificateFrame}
-                                                ></iframe>
+                                                {cert.type === 'image' ? (
+                                                    <img
+                                                        src={cert.src}
+                                                        alt={cert.title}
+                                                        className={styles.certificateFrame}
+                                                        style={{ objectFit: 'contain', background: '#fff' }}
+                                                    />
+                                                ) : (
+                                                    <iframe
+                                                        src={cert.src}
+                                                        title={cert.title}
+                                                        className={styles.certificateFrame}
+                                                    ></iframe>
+                                                )}
                                                 
                                                 {/* Category Tag overlay on top-left */}
                                                 <span className={styles.categoryBadge}>{cert.category.toUpperCase()}</span>
@@ -228,7 +245,7 @@ function Achievements() {
                                                 </div>
                                                 
                                                 <a 
-                                                    href={cert.src.replace('#toolbar=0', '')} 
+                                                    href={cert.type === 'image' ? cert.src : cert.src.replace('#toolbar=0', '')} 
                                                     target="_blank" 
                                                     rel="noopener noreferrer" 
                                                     className={styles.viewLink}

@@ -1,22 +1,26 @@
-import { useState } from 'react';
-import styles from '../styles/Contact.module.css'
+import { useState, useRef } from 'react';
+import emailjs from '@emailjs/browser';
+import styles from '../styles/Contact.module.css';
 
+// ─── EmailJS Config (pulled from .env) ─────────────────────────────────────
+const SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 function Contact() {
+    const formRef = useRef(null);
+
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         subject: '',
         message: ''
     });
-    const [status, setStatus] = useState('');
+    const [status, setStatus] = useState(''); // '' | 'success' | 'error' | 'env_error'
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e) => {
@@ -24,34 +28,41 @@ function Contact() {
         setIsSubmitting(true);
         setStatus('');
 
-        try {
-            const response = await fetch("https://formsubmit.co/ajax/potturishanmukha919@gmail.com", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    name: formData.name,
-                    email: formData.email,
-                    subject: formData.subject || "Portfolio Contact Form",
-                    message: formData.message
-                })
-            });
+        // Guard: make sure env vars are filled in
+        if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY ||
+            SERVICE_ID === 'your_service_id_here') {
+            console.error('EmailJS credentials are not set in .env');
+            setStatus('env_error');
+            setIsSubmitting(false);
+            return;
+        }
 
-            if (response.ok) {
-                // Show success message
+        // Template params must match your EmailJS template variables
+        const templateParams = {
+            from_name:  formData.name,
+            from_email: formData.email,
+            subject:    formData.subject || 'Portfolio Contact Form',
+            message:    formData.message,
+            reply_to:   formData.email,
+        };
+
+        try {
+            const result = await emailjs.send(
+                SERVICE_ID,
+                TEMPLATE_ID,
+                templateParams,
+                PUBLIC_KEY
+            );
+
+            if (result.status === 200) {
                 setStatus('success');
                 setFormData({ name: '', email: '', subject: '', message: '' });
-
-                // Clear success message after 5 seconds
-                setTimeout(() => setStatus(''), 5000);
+                setTimeout(() => setStatus(''), 6000);
             } else {
-                throw new Error('Form submission failed');
+                throw new Error(`Unexpected status: ${result.status}`);
             }
-
         } catch (error) {
-            console.error('Form submission error:', error);
+            console.error('EmailJS error:', error);
             setStatus('error');
         } finally {
             setIsSubmitting(false);
@@ -60,11 +71,11 @@ function Contact() {
 
     return (
         <section className={styles.contact} id="contact">
-
             <div className="container">
                 <h2 className="section-title">Contact <span>Me</span></h2>
 
                 <div className={styles.contactContent}>
+                    {/* Left: Info */}
                     <div className={styles.contactInfo}>
                         <h3>Let's Connect</h3>
                         <p>I'm always open to discussing new opportunities and interesting projects.</p>
@@ -75,7 +86,10 @@ function Contact() {
                                 <div>
                                     <h4>Email</h4>
                                     <p>
-                                        <a href="mailto:potturishanmukha919@gmail.com" style={{ color: 'var(--text-color)', textDecoration: 'none' }}>
+                                        <a
+                                            href="mailto:potturishanmukha919@gmail.com"
+                                            style={{ color: 'var(--text-color)', textDecoration: 'none' }}
+                                        >
                                             potturishanmukha919@gmail.com
                                         </a>
                                     </p>
@@ -98,64 +112,69 @@ function Contact() {
                         </div>
                     </div>
 
-                    <form className={styles.contactForm} onSubmit={handleSubmit}>
+                    {/* Right: Form */}
+                    <form ref={formRef} className={styles.contactForm} onSubmit={handleSubmit} noValidate>
                         <div className={styles.formGroup}>
                             <input
                                 type="text"
                                 name="name"
-                                id="name"
+                                id="contact-name"
                                 placeholder="Your Name"
                                 value={formData.name}
                                 onChange={handleChange}
                                 required
                             />
-                            <label htmlFor="name">Name</label>
+                            <label htmlFor="contact-name">Name</label>
                         </div>
 
                         <div className={styles.formGroup}>
                             <input
                                 type="email"
                                 name="email"
-                                id="email"
+                                id="contact-email"
                                 placeholder="Your Email"
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
                             />
-                            <label htmlFor="email">Email</label>
+                            <label htmlFor="contact-email">Email</label>
                         </div>
 
                         <div className={styles.formGroup}>
                             <input
                                 type="text"
                                 name="subject"
-                                id="subject"
+                                id="contact-subject"
                                 placeholder="Subject"
                                 value={formData.subject}
                                 onChange={handleChange}
                             />
-                            <label htmlFor="subject">Subject</label>
+                            <label htmlFor="contact-subject">Subject</label>
                         </div>
 
                         <div className={styles.formGroup}>
                             <textarea
                                 name="message"
-                                id="message"
+                                id="contact-message"
                                 placeholder="Your Message"
                                 rows="5"
                                 value={formData.message}
                                 onChange={handleChange}
                                 required
                             ></textarea>
-                            <label htmlFor="message">Message</label>
+                            <label htmlFor="contact-message">Message</label>
                         </div>
 
-                        <button type="submit" className="btn btn-primary btn-full" disabled={isSubmitting}>
-                            <span className={styles.btnText} style={{ display: isSubmitting ? 'none' : 'inline' }}>
+                        <button
+                            type="submit"
+                            className="btn btn-primary btn-full"
+                            disabled={isSubmitting}
+                        >
+                            <span style={{ display: isSubmitting ? 'none' : 'inline' }}>
                                 Send Message
                             </span>
-                            <span className={styles.btnLoader} style={{ display: isSubmitting ? 'inline' : 'none' }}>
-                                <i className="fas fa-spinner fa-spin"></i>
+                            <span style={{ display: isSubmitting ? 'inline' : 'none' }}>
+                                <i className="fas fa-spinner fa-spin"></i>&nbsp; Sending...
                             </span>
                         </button>
 
@@ -166,7 +185,12 @@ function Contact() {
                         )}
                         {status === 'error' && (
                             <div className={`${styles.formStatus} ${styles.error}`}>
-                                Something went wrong. Please try again.
+                                Something went wrong. Please try again or email me directly.
+                            </div>
+                        )}
+                        {status === 'env_error' && (
+                            <div className={`${styles.formStatus} ${styles.error}`}>
+                                Email service not configured yet. Please add EmailJS credentials to .env file.
                             </div>
                         )}
                     </form>
